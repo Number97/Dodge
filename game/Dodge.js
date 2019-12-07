@@ -66,7 +66,7 @@ function draw()
 	{
 		noLoop()
 	}
-	background(0,255,255);
+	background(0);
 	stroke(50);
 	line(350,0,350,800)
 	line(450,0,450,800)
