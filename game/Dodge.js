@@ -587,6 +587,7 @@ function keyPressed()
 	}
 	else if(key=='r')
 	{
+		stage=1
 		objects = []
 		size = 0
 		count = 1
