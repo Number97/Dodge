@@ -9,7 +9,6 @@ class Objectt
 		this.targetPosY=0
 		this.actualPosX=0
 		this.actualPosY=0
-		this.glitter=true
 		
 		if(this.pos<=9)
 		{

@@ -7,11 +7,23 @@ var number
 var score
 var removed
 var stage
+
 var d=0
-var g=0
 var h=0
+
+var r=0
+var g=0
+var b=0
+
+var cX=0
+var cY=0
+
+
 var stage=0
 var count4=0
+var epilepsy = false
+var shaky = false
+var curvy = false
 	
 function setup() 
 {
@@ -79,32 +91,56 @@ function draw()
 	fill(75,170,255)
 	circle(objects[0].actualPosX,objects[0].actualPosY,30)
 	objects[0].goToNext()
-	fill(255)
 	for(var i=1;i<size;i++)
 	{
-		if(objects[i].glitter)
+		if(shaky)
 		{
-			d=random(-2,2)
-			g=random(-2,2)
-			h=random(-2,2)
+			d=random(-5,5)
+			h=random(-5,5)
 		}
-		/*if((objects[i].target==0)||(objects[i].target==2))
+		if(epilepsy)
 		{
-			circle(objects[i].actualPosX+cos(count4/10)*10,objects[i].actualPosY,30)
+			r=random(0,255)
+			b=random(0,255)
+			g=random(0,255)
 		}
-		else
+		if(curvy)
 		{
-			circle(objects[i].actualPosX,objects[i].actualPosY+cos(count4/10)*10,30)
-		}*/
-		circle(objects[i].actualPosX,objects[i].actualPosY,30)
+			if((objects[i].target==0)||(objects[i].target==2))
+			{
+				cX=cos(count4/10)*10
+			}
+			else
+			{
+				cY=cos(count4/10)*10
+			}
+			
+		}
+		fill(255-r,255-g,255-b)
+		circle(objects[i].actualPosX+d+cX,objects[i].actualPosY+h+cY,30)
+
 		d=0
+		h=0
+		
+		r=0
+		g=0
+		b=0
+		
+		cX=0
+		cY=0
+
 		objects[i].goToNext()
 	}
+
 	count++
 	score+=count3*count3
+	fill(255)
 	text("Score: ",650,100)
 	text(score,700,100)
-	text("If you lost, press 'r' for restart",50,700)
+	text("If you lose, press 'r' for restart",50,700)
+	text("For shaky mode, press 's'",50,100)
+	text("For curvy mode, press 'c'",50,115)
+	text("For epileptic mode, press 'e'",50,130)
 	destroy()
 }
 
@@ -193,5 +229,17 @@ function keyPressed()
 		size++
 		loop()
 		frameRate(200)
+	}
+	if(key=='c')
+	{
+		curvy=!curvy
+	}
+	if(key=='e')
+	{
+		epilepsy=!epilepsy
+	}
+	if(key=='s')
+	{
+		shaky=!shaky
 	}
 }		
