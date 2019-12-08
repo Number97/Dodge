@@ -134,7 +134,7 @@ function draw()
 						number=random(107,110)
 						number=(int)(number)
 
-						if(i==2)
+						if(i==1)
 						{
 							while(number==objects[size-1].pos)
 							{
@@ -222,7 +222,7 @@ function draw()
 						{
 							number-=3
 						}
-						if(i==3)
+						if(i==2)
 						{
 							while((number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==314)||(number+objects[size-1].pos+objects[size-2].pos==313)||(number+objects[size-1].pos+objects[size-2].pos==312)||(number+objects[size-1].pos+objects[size-2].pos==307)||(number+objects[size-1].pos+objects[size-2].pos==308))
 							{
@@ -234,7 +234,7 @@ function draw()
 								}
 							}
 						}
-						else if(i==2)
+						if(i==1)
 						{
 							while((number+objects[size-1].pos==205)||(number==objects[size-1].pos))
 							{
@@ -284,7 +284,7 @@ function draw()
 			}
 			else
 			{
-				line(0,400-transitionStage,800,400-transitionStage)
+				line(400-transitionStage,0,400-transitionStage,800)
 				transitionStage++;
 			}
 			break;
@@ -315,7 +315,7 @@ function draw()
 				{
 					number=random(101,113)
 					number=(int)(number)
-					while((i==3)&&((number+objects[size-1].pos+objects[size-2].pos==306)||(number+objects[size-1].pos+objects[size-2].pos==315)||(number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==333)))
+					while((i==2)&&((number+objects[size-1].pos+objects[size-2].pos==306)||(number+objects[size-1].pos+objects[size-2].pos==315)||(number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==333)))
 					{
 						number=random(101,113)
 					}
@@ -411,6 +411,11 @@ function draw()
 	text("For curvy mode, press 'c'",50,115)
 	text("For epileptic mode, press 'e'",50,130)
 	text("To skip to max stage, press 'm'",50,155)
+	if(stage<10)
+	{
+		text("Stage " + stage,650,650)
+	}
+	text("(Use arrows to move)",650,700)
 	destroy()
 }
 
