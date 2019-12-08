@@ -133,9 +133,14 @@ function draw()
 					{
 						number=random(107,110)
 						number=(int)(number)
-						while((i==2)&&(number==objects[size-1].pos))
+
+						if(i==2)
 						{
-							number=random(107,110)
+							while(number==objects[size-1].pos)
+							{
+								number=random(107,110)
+								number=(int)(number)
+							}
 						}
 						number=(int)(number)
 						objects.push(new Objectt(number))
@@ -144,7 +149,7 @@ function draw()
 				}
 				else if(size==1)
 				{
-					stage=3
+					stage=23
 				}
 			}
 			background(0);
@@ -155,7 +160,136 @@ function draw()
 			line(400,500,400,300)
 			break;
 
+		case 23:
+			background(0);
+			stroke(50);
+			line(0,400,800,400)
+			line(0,300,800,300)
+			line(0,500,800,500)
+			if(transitionStage==200)
+			{
+				stage=3
+				transitionStage=0
+				multiplier=4
+				count = 1
+				count2 = 0
+				count3 = 1
+				number = 0
+			}
+			else if(transitionStage<100)
+			{
+				line(400,500,400,300)
+				line(400+transitionStage,500,400+transitionStage,300)
+				transitionStage++;
+			}
+			else
+			{
+				line(400,500+3*(transitionStage-100),400,300-3*(transitionStage-100))
+				line(500,500+3*(transitionStage-100),500,300-3*(transitionStage-100))
+				transitionStage++;
+			}
+			break;
+
 		case 3:
+			if(count4==314)
+			{
+				count4=0
+			}
+			else
+			(
+				count4++
+			)
+			if(count%60==0)
+			{
+				count=0
+				count2++
+		
+				if(count2%10==0)
+				{
+					count2=0
+					if(count3<4)
+					{
+						count3++;
+					}
+				}
+				if(count3<=3)
+				{
+					for(var i=0;i<count3;i++)
+					{
+						number=random(105,110)
+						number=(int)(number)
+						if(number<107)
+						{
+							number-=3
+						}
+						if(i==3)
+						{
+							while((number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==314)||(number+objects[size-1].pos+objects[size-2].pos==313)||(number+objects[size-1].pos+objects[size-2].pos==312)||(number+objects[size-1].pos+objects[size-2].pos==307)||(number+objects[size-1].pos+objects[size-2].pos==308))
+							{
+								number=random(105,110)
+								number=(int)(number)
+								if(number<107)
+								{
+									number-=3
+								}
+							}
+						}
+						else if(i==2)
+						{
+							while((number+objects[size-1].pos==205)||(number==objects[size-1].pos))
+							{
+								number=random(105,110)
+								number=(int)(number)
+								if(number<107)
+								{
+									number-=3
+								}
+							}
+						}
+						objects.push(new Objectt(number))
+						size++
+					}
+				}
+				else if(size==1)
+				{
+					stage=34
+				}
+			}
+			background(0);
+			stroke(50);
+			line(0,400,800,400)
+			line(0,300,800,300)
+			line(0,500,800,500)
+			line(400,0,400,800)
+			line(500,0,500,800)
+			break;
+
+		case 34:
+			background(0);
+			stroke(50);
+			line(0,400,800,400)
+			line(0,300,800,300)
+			line(0,500,800,500)
+			line(400,0,400,800)
+			line(500,0,500,800)
+			if(transitionStage==100)
+			{
+				stage=4
+				transitionStage=0
+				multiplier=7
+				count = 1
+				count2 = 0
+				count3 = 1
+				number = 0
+			}
+			else
+			{
+				line(0,400-transitionStage,800,400-transitionStage)
+				transitionStage++;
+			}
+			break;
+
+		case 4:
 			if(count4==314)
 			{
 				count4=0
@@ -202,7 +336,17 @@ function draw()
 	}
 	
 	fill(75,170,255)
-	objects[0].goToNext()
+	for(var p=0;p<objects[0].speed;p++)
+	{
+		if(gameOver())
+		{
+			p=objects[0].speed
+		}
+		else
+		{
+			objects[0].goToNext()
+		}
+	}
 	circle(objects[0].actualPosX,objects[0].actualPosY,30)
 	for(var i=1;i<size;i++)
 	{
@@ -242,7 +386,17 @@ function draw()
 		cX=0
 		cY=0
 
-		objects[i].goToNext()
+		for(var p=0;p<objects[i].speed;p++)
+		{
+			if(gameOver())
+			{
+				p=objects[i].speed
+			}
+			else
+			{
+				objects[i].goToNext()
+			}
+		}
 	}
 
 
@@ -256,6 +410,7 @@ function draw()
 	text("For shaky mode, press 's'",50,100)
 	text("For curvy mode, press 'c'",50,115)
 	text("For epileptic mode, press 'e'",50,130)
+	text("To skip to max stage, press 'm'",50,155)
 	destroy()
 }
 
@@ -324,7 +479,7 @@ function keyPressed()
 								objects[0].targetPos+=3
 							}
 						}
-			
+				
 						if (keyCode == UP_ARROW)
 						{
 							if(objects[0].pos!=2)
@@ -335,8 +490,8 @@ function keyPressed()
 							}
 						}
 						break;
-		
-				case 3:
+			
+				case 4:
 					if (keyCode == DOWN_ARROW)
 					{
 						if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
@@ -346,7 +501,7 @@ function keyPressed()
 							objects[0].targetPos+=3
 						}
 					}
-					
+						
 					if (keyCode == LEFT_ARROW)
 					{
 						if((objects[0].pos!=1)&&(objects[0].pos!=4)&&(objects[0].pos!=7))
@@ -356,10 +511,52 @@ function keyPressed()
 							objects[0].targetPos--
 						}
 					}
-
+	
 					if (keyCode == UP_ARROW)
 					{
 						if((objects[0].pos!=1)&&(objects[0].pos!=2)&&(objects[0].pos!=3))
+						{
+							objects[0].target=2
+							objects[0].targetPosY-=100
+							objects[0].targetPos-=3
+						}
+					}
+	
+					if (keyCode == RIGHT_ARROW)
+					{
+						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
+						{
+							objects[0].target=3
+							objects[0].targetPosX+=100
+							objects[0].targetPos++
+						}
+					}
+					break;
+					
+				case 3:
+					if (keyCode == DOWN_ARROW)
+					{
+						if((objects[0].pos!=8)&&(objects[0].pos!=9))
+						{
+							objects[0].target=0
+							objects[0].targetPosY+=100
+							objects[0].targetPos+=3
+						}
+					}
+					
+					if (keyCode == LEFT_ARROW)
+					{
+						if((objects[0].pos!=2)&&(objects[0].pos!=5)&&(objects[0].pos!=8))
+						{
+							objects[0].target=1
+							objects[0].targetPosX-=100
+							objects[0].targetPos--
+						}
+					}
+
+					if (keyCode == UP_ARROW)
+					{
+						if((objects[0].pos!=2)&&(objects[0].pos!=3))
 						{
 							objects[0].target=2
 							objects[0].targetPosY-=100
@@ -405,5 +602,10 @@ function keyPressed()
 	if(key=='s')
 	{
 		shaky=!shaky
+	}
+	if(key=='m')
+	{
+		stage=4
+		multiplier=7
 	}
 }		

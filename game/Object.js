@@ -157,19 +157,19 @@ class Objectt
 		switch(this.target)
 		{
 			case 0:
-				this.actualPosY+=this.speed
+				this.actualPosY++
 			break
 
 			case 1:
-				this.actualPosX-=this.speed
+				this.actualPosX--
 			break
 			
 			case 2:
-				this.actualPosY-=this.speed
+				this.actualPosY--
 			break
 
 			case 3:
-				this.actualPosX+=this.speed
+				this.actualPosX++
 			break
 		}
 
