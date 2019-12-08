@@ -10,6 +10,8 @@ var removed
 var stage = 1
 var transitionStage = 0
 
+var multiplier = 1
+
 var d=0
 var h=0
 
@@ -50,75 +52,152 @@ function draw()
 	{
 		case 1:
 			if(count4==314)
+			{
+				count4=0
+			}
+			else
+			(
+				count4++
+			)
+			if(count%60==0)
+			{
+				count=0
+				if(count2<=10)
 				{
-					count4=0
-				}
-				else
-				(
-					count4++
-				)
-				if(count%60==0)
-				{
-					count=0
-					count2++
-					if(count2%10==0)
-					{
-						stage++
-					}
 					number=random(107,109)
 					number=(int)(number)
 					objects.push(new Objectt(number))
 					size++
+					count2++
 				}
-				background(0);
-				stroke(50);
-				line(0,400,800,400)
-				line(0,300,800,300)
-				line(400,400,400,300)
+				else if(size==1)
+				{
+					stage=12
+				}
+			}
+			background(0);
+			stroke(50);
+			line(0,400,800,400)
+			line(0,300,800,300)
+			line(400,400,400,300)
+			break;
+
+		case 12:
+			background(0);
+			stroke(50);
+			line(0,400,800,400)
+			line(0,300,800,300)
+			line(400,400+transitionStage,400,300)
+			if(transitionStage==100)
+			{
+				stage=2
+				transitionStage=0
+				multiplier=2
+				count = 1
+				count2 = 0
+				count3 = 1
+				number = 0
+			}
+			else
+			{
+				line(0,400+transitionStage,800,400+transitionStage)
+				transitionStage++;
+			}
 			break;
 
 		case 2:
 			if(count4==314)
+			{
+				count4=0
+			}
+			else
+			(
+				count4++
+			)
+			if(count%60==0)
+			{
+				count=0
+				count2++
+	
+				if(count2%10==0)
 				{
-					count4=0
-				}
-				else
-				(
-					count4++
-				)
-				if(count%60==0)
-				{
-					count=0
-					count2++
-
-					if(count2%10==0)
+					count2=0
+					if(count3<3)
 					{
-						count2=0
-						if(count3<3)
-						{
-							count3++;
-						}
+						count3++;
 					}
+				}
+				if(count3<=2)
+				{
 					for(var i=0;i<count3;i++)
 					{
-						number=random(101,113)
-						while((i==3)&&((number+objects[size-1].pos+objects[size-2].pos==306)||(number+objects[size-1].pos+objects[size-2].pos==315)||(number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==333)))
+						number=random(107,110)
+						number=(int)(number)
+						while((i==2)&&(number==objects[size-1].pos))
 						{
-							number=random(101,113)
+							number=random(107,110)
 						}
 						number=(int)(number)
 						objects.push(new Objectt(number))
 						size++
 					}
 				}
-				background(0);
-				stroke(50);
-				line(300,0,300,800)
-				line(400,0,400,800)
-				line(500,0,500,800)
-				line(0,300,800,300)
-				line(0,400,800,400)
-				line(0,500,800,500)
+				else if(size==1)
+				{
+					stage=3
+				}
+			}
+			background(0);
+			stroke(50);
+			line(0,400,800,400)
+			line(0,300,800,300)
+			line(0,500,800,500)
+			line(400,500,400,300)
+			break;
+
+		case 3:
+			if(count4==314)
+			{
+				count4=0
+			}
+			else
+			(
+				count4++
+			)
+			if(count%60==0)
+			{
+				count=0
+				count2++
+
+				if(count2%10==0)
+				{
+					count2=0
+					if(count3<3)
+					{
+						count3++;
+					}
+				}
+				for(var i=0;i<count3;i++)
+				{
+					number=random(101,113)
+					number=(int)(number)
+					while((i==3)&&((number+objects[size-1].pos+objects[size-2].pos==306)||(number+objects[size-1].pos+objects[size-2].pos==315)||(number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==333)))
+					{
+						number=random(101,113)
+					}
+					number=(int)(number)
+					objects.push(new Objectt(number))
+					size++
+				}
+			}
+			background(0);
+			stroke(50);
+			line(300,0,300,800)
+			line(400,0,400,800)
+			line(500,0,500,800)
+			line(0,300,800,300)
+			line(0,400,800,400)
+			line(0,500,800,500)
 			break;
 	}
 	
@@ -168,7 +247,8 @@ function draw()
 
 
 	count++
-	score+=count3*count3
+
+	score+=count3*count3 * multiplier
 	fill(255)
 	text("Score: ",650,100)
 	text(score,700,100)
@@ -212,7 +292,7 @@ function keyPressed()
 		{
 			switch(stage)
 			{
-				case 1:
+				case ((1)||(12)):
 					if (keyCode == DOWN_ARROW)
 					{
 						if(objects[0].pos!=5)
@@ -235,6 +315,28 @@ function keyPressed()
 					break;
 
 				case 2:
+						if (keyCode == DOWN_ARROW)
+						{
+							if(objects[0].pos!=8)
+							{
+								objects[0].target=0
+								objects[0].targetPosY+=100
+								objects[0].targetPos+=3
+							}
+						}
+			
+						if (keyCode == UP_ARROW)
+						{
+							if(objects[0].pos!=2)
+							{
+								objects[0].target=2
+								objects[0].targetPosY-=100
+								objects[0].targetPos-=3
+							}
+						}
+						break;
+		
+				case 3:
 					if (keyCode == DOWN_ARROW)
 					{
 						if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
