@@ -315,11 +315,14 @@ function draw()
 				{
 					number=random(101,113)
 					number=(int)(number)
-					while((i==2)&&((number+objects[size-1].pos+objects[size-2].pos==306)||(number+objects[size-1].pos+objects[size-2].pos==315)||(number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==333)))
+					if(i==2)
 					{
-						number=random(101,113)
+						while((number+objects[size-1].pos+objects[size-2].pos==306)||(number+objects[size-1].pos+objects[size-2].pos==315)||(number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==333))
+						{
+							number=random(101,113)
+							number=(int)(number)
+						}
 					}
-					number=(int)(number)
 					objects.push(new Objectt(number))
 					size++
 				}
