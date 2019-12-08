@@ -6,7 +6,9 @@ var count3
 var number
 var score
 var removed
-var stage
+
+var stage = 1
+var transitionStage = 0
 
 var d=0
 var h=0
@@ -18,8 +20,6 @@ var b=0
 var cX=0
 var cY=0
 
-
-var stage=0
 var count4=0
 var epilepsy = false
 var shaky = false
@@ -41,56 +41,90 @@ function setup()
 
 function draw()
 {	
-	if(count4==314)
-	{
-		count4=0
-	}
-	else
-	(
-		count4++
-	)
-	if(count%60==0)
-	{
-		count=0
-		count2++
-
-		if(count2%10==0)
-		{
-			count2=0
-			if(count3<3)
-			{
-				count3++;
-			}
-		}
-		for(var i=0;i<count3;i++)
-		{
-			number=random(101,113)
-			while((i==3)&&((number+objects[size-1].pos+objects[size-2]==306)||(number+objects[size-1].pos+objects[size-2]==315)||(number+objects[size-1].pos+objects[size-2]==324)||(number+objects[size-1].pos+objects[size-2]==333)))
-			{
-				number=random(101,113)
-			}
-			number=(int)(number)
-			objects.push(new Objectt(number))
-			size++
-		}
-	}
 	if(gameOver())
 	{
 		noLoop()
 	}
-	background(0);
-	stroke(50);
-	line(350,0,350,800)
-	line(450,0,450,800)
-	line(550,0,550,800)
-	line(250,0,250,800)
-	line(0,350,800,350)
-	line(0,450,800,450)
-	line(0,550,800,550)
-	line(0,250,800,250)
+
+	switch(stage)
+	{
+		case 1:
+			if(count4==314)
+				{
+					count4=0
+				}
+				else
+				(
+					count4++
+				)
+				if(count%60==0)
+				{
+					count=0
+					count2++
+					if(count2%10==0)
+					{
+						stage++
+					}
+					number=random(107,109)
+					number=(int)(number)
+					objects.push(new Objectt(number))
+					size++
+				}
+				background(0);
+				stroke(50);
+				line(0,400,800,400)
+				line(0,300,800,300)
+				line(400,400,400,300)
+			break;
+
+		case 2:
+			if(count4==314)
+				{
+					count4=0
+				}
+				else
+				(
+					count4++
+				)
+				if(count%60==0)
+				{
+					count=0
+					count2++
+
+					if(count2%10==0)
+					{
+						count2=0
+						if(count3<3)
+						{
+							count3++;
+						}
+					}
+					for(var i=0;i<count3;i++)
+					{
+						number=random(101,113)
+						while((i==3)&&((number+objects[size-1].pos+objects[size-2].pos==306)||(number+objects[size-1].pos+objects[size-2].pos==315)||(number+objects[size-1].pos+objects[size-2].pos==324)||(number+objects[size-1].pos+objects[size-2].pos==333)))
+						{
+							number=random(101,113)
+						}
+						number=(int)(number)
+						objects.push(new Objectt(number))
+						size++
+					}
+				}
+				background(0);
+				stroke(50);
+				line(300,0,300,800)
+				line(400,0,400,800)
+				line(500,0,500,800)
+				line(0,300,800,300)
+				line(0,400,800,400)
+				line(0,500,800,500)
+			break;
+	}
+	
 	fill(75,170,255)
-	circle(objects[0].actualPosX,objects[0].actualPosY,30)
 	objects[0].goToNext()
+	circle(objects[0].actualPosX,objects[0].actualPosY,30)
 	for(var i=1;i<size;i++)
 	{
 		if(shaky)
@@ -121,7 +155,7 @@ function draw()
 
 		d=0
 		h=0
-		
+
 		r=0
 		g=0
 		b=0
@@ -131,6 +165,7 @@ function draw()
 
 		objects[i].goToNext()
 	}
+
 
 	count++
 	score+=count3*count3
@@ -161,7 +196,7 @@ function gameOver()
 {
 	for(var i=1;i<size;i++)
 	{
-		if((((objects[i].actualPosX-objects[0].actualPosX)*(objects[i].actualPosX-objects[0].actualPosX))+((objects[i].actualPosY-objects[0].actualPosY)*(objects[i].actualPosY-objects[0].actualPosY)))<3600)
+		if((((objects[i].actualPosX-objects[0].actualPosX)*(objects[i].actualPosX-objects[0].actualPosX))+((objects[i].actualPosY-objects[0].actualPosY)*(objects[i].actualPosY-objects[0].actualPosY)))<=3600)
 		{
 			return true
 		}
@@ -175,44 +210,71 @@ function keyPressed()
 	{
 		if(objects[0].target==5)
 		{
-			if (keyCode == DOWN_ARROW)
+			switch(stage)
 			{
-				if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
-				{
-					objects[0].target=0
-					objects[0].targetPosY+=100
-					objects[0].targetPos+=3
-				}
-			}
-			
-			if (keyCode == LEFT_ARROW)
-			{
-				if((objects[0].pos!=1)&&(objects[0].pos!=4)&&(objects[0].pos!=7))
-				{
-					objects[0].target=1
-					objects[0].targetPosX-=100
-					objects[0].targetPos--
-				}
-			}
+				case 1:
+					if (keyCode == DOWN_ARROW)
+					{
+						if(objects[0].pos!=5)
+						{
+							objects[0].target=0
+							objects[0].targetPosY+=100
+							objects[0].targetPos+=3
+						}
+					}
+	
+					if (keyCode == UP_ARROW)
+					{
+						if(objects[0].pos!=2)
+						{
+							objects[0].target=2
+							objects[0].targetPosY-=100
+							objects[0].targetPos-=3
+						}
+					}
+					break;
 
-			if (keyCode == UP_ARROW)
-			{
-				if((objects[0].pos!=1)&&(objects[0].pos!=2)&&(objects[0].pos!=3))
-				{
-					objects[0].target=2
-					objects[0].targetPosY-=100
-					objects[0].targetPos-=3
-				}
-			}
+				case 2:
+					if (keyCode == DOWN_ARROW)
+					{
+						if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
+						{
+							objects[0].target=0
+							objects[0].targetPosY+=100
+							objects[0].targetPos+=3
+						}
+					}
+					
+					if (keyCode == LEFT_ARROW)
+					{
+						if((objects[0].pos!=1)&&(objects[0].pos!=4)&&(objects[0].pos!=7))
+						{
+							objects[0].target=1
+							objects[0].targetPosX-=100
+							objects[0].targetPos--
+						}
+					}
 
-			if (keyCode == RIGHT_ARROW)
-			{
-				if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
-				{
-					objects[0].target=3
-					objects[0].targetPosX+=100
-					objects[0].targetPos++
-				}
+					if (keyCode == UP_ARROW)
+					{
+						if((objects[0].pos!=1)&&(objects[0].pos!=2)&&(objects[0].pos!=3))
+						{
+							objects[0].target=2
+							objects[0].targetPosY-=100
+							objects[0].targetPos-=3
+						}
+					}
+
+					if (keyCode == RIGHT_ARROW)
+					{
+						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
+						{
+							objects[0].target=3
+							objects[0].targetPosX+=100
+							objects[0].targetPos++
+						}
+					}
+					break;
 			}
 		}
 	}
