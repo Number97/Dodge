@@ -100,9 +100,9 @@ function draw()
 			}
 			else
 			{
-				line(0,400+transitionStage,800,400+transitionStage)
 				transitionStage++;
 			}
+			line(0,400+transitionStage,800,400+transitionStage)
 			break;
 
 		case 2:
@@ -168,6 +168,8 @@ function draw()
 			line(0,500,800,500)
 			if(transitionStage==200)
 			{
+				line(400,500+3*(transitionStage-100),400,300-3*(transitionStage-100))
+				line(500,500+3*(transitionStage-100),500,300-3*(transitionStage-100))
 				stage=3
 				transitionStage=0
 				multiplier=4
@@ -284,9 +286,9 @@ function draw()
 			}
 			else
 			{
-				line(400-transitionStage,0,400-transitionStage,800)
 				transitionStage++;
 			}
+			line(400-transitionStage,0,400-transitionStage,800)
 			break;
 
 		case 4:
