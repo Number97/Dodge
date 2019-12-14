@@ -29,7 +29,7 @@ var curvy = false
 	
 function setup() 
 {
-	createCanvas(800, 800)
+	createCanvas(400, 400)
 	objects = []
 	size = 0
 	count = 1
@@ -51,6 +51,8 @@ function setup()
 	});
 	
 	hammer.on("swipe", swiped);
+
+	textSize(8)
 }
 
 function draw()
@@ -89,17 +91,17 @@ function draw()
 			}
 			background(0);
 			stroke(50);
-			line(0,400,800,400)
-			line(0,300,800,300)
-			line(400,400,400,300)
+			line(0,200,400,200)
+			line(0,150,400,150)
+			line(200,200,200,150)
 			break;
 
 		case 12:
 			background(0);
 			stroke(50);
-			line(0,400,800,400)
-			line(0,300,800,300)
-			line(400,400+transitionStage,400,300)
+			line(0,200,400,200)
+			line(0,150,400,150)
+			line(200,200+transitionStage/2,200,150)
 			if(transitionStage==100)
 			{
 				stage=2
@@ -114,7 +116,7 @@ function draw()
 			{
 				transitionStage++;
 			}
-			line(0,400+transitionStage,800,400+transitionStage)
+			line(0,200+transitionStage/2,400,200+transitionStage/2)
 			break;
 
 		case 2:
@@ -166,22 +168,22 @@ function draw()
 			}
 			background(0);
 			stroke(50);
-			line(0,400,800,400)
-			line(0,300,800,300)
-			line(0,500,800,500)
-			line(400,500,400,300)
+			line(0,200,400,200)
+			line(0,150,400,150)
+			line(0,250,400,250)
+			line(200,250,200,150)
 			break;
 
 		case 23:
 			background(0);
 			stroke(50);
-			line(0,400,800,400)
-			line(0,300,800,300)
-			line(0,500,800,500)
+			line(0,200,400,200)
+			line(0,150,400,150)
+			line(0,250,400,250)
 			if(transitionStage==200)
 			{
-				line(400,500+3*(transitionStage-100),400,300-3*(transitionStage-100))
-				line(500,500+3*(transitionStage-100),500,300-3*(transitionStage-100))
+				line(200,250+3*(transitionStage-100)/2,200,150-3*(transitionStage-100)/2)
+				line(250,250+3*(transitionStage-100)/2,250,150-3*(transitionStage-100)/2)
 				stage=3
 				transitionStage=0
 				multiplier=4
@@ -192,14 +194,14 @@ function draw()
 			}
 			else if(transitionStage<100)
 			{
-				line(400,500,400,300)
-				line(400+transitionStage,500,400+transitionStage,300)
+				line(200,250,200,150)
+				line(200+transitionStage/2,250,200+transitionStage/2,150)
 				transitionStage++;
 			}
 			else
 			{
-				line(400,500+3*(transitionStage-100),400,300-3*(transitionStage-100))
-				line(500,500+3*(transitionStage-100),500,300-3*(transitionStage-100))
+				line(200,250+3*(transitionStage-100)/2,200,150-3*(transitionStage-100)/2)
+				line(250,250+3*(transitionStage-100)/2,250,150-3*(transitionStage-100)/2)
 				transitionStage++;
 			}
 			break;
@@ -271,21 +273,21 @@ function draw()
 			}
 			background(0);
 			stroke(50);
-			line(0,400,800,400)
-			line(0,300,800,300)
-			line(0,500,800,500)
-			line(400,0,400,800)
-			line(500,0,500,800)
+			line(0,200,400,200)
+			line(0,150,400,150)
+			line(0,250,400,250)
+			line(200,0,200,400)
+			line(250,0,250,400)
 			break;
 
 		case 34:
 			background(0);
 			stroke(50);
-			line(0,400,800,400)
-			line(0,300,800,300)
-			line(0,500,800,500)
-			line(400,0,400,800)
-			line(500,0,500,800)
+			line(0,200,400,200)
+			line(0,150,400,150)
+			line(0,250,400,250)
+			line(200,0,200,400)
+			line(250,0,250,400)
 			if(transitionStage==100)
 			{
 				stage=4
@@ -300,7 +302,7 @@ function draw()
 			{
 				transitionStage++;
 			}
-			line(400-transitionStage,0,400-transitionStage,800)
+			line(200-transitionStage/2,0,200-transitionStage/2,400)
 			break;
 
 		case 4:
@@ -343,12 +345,12 @@ function draw()
 			}
 			background(0);
 			stroke(50);
-			line(300,0,300,800)
-			line(400,0,400,800)
-			line(500,0,500,800)
-			line(0,300,800,300)
-			line(0,400,800,400)
-			line(0,500,800,500)
+			line(150,0,150,400)
+			line(200,0,200,400)
+			line(250,0,250,400)
+			line(0,150,400,150)
+			line(0,200,400,200)
+			line(0,250,400,250)
 			break;
 	}
 	
@@ -364,13 +366,13 @@ function draw()
 			objects[0].goToNext()
 		}
 	}
-	circle(objects[0].actualPosX,objects[0].actualPosY,30)
+	circle(objects[0].actualPosX,objects[0].actualPosY,15)
 	for(var i=1;i<size;i++)
 	{
 		if(shaky)
 		{
-			d=random(-5,5)
-			h=random(-5,5)
+			d=random(-3,3)
+			h=random(-3,3)
 		}
 		if(epilepsy)
 		{
@@ -382,16 +384,16 @@ function draw()
 		{
 			if((objects[i].target==0)||(objects[i].target==2))
 			{
-				cX=cos(count4/10)*10
+				cX=cos(count4/5)*5
 			}
 			else
 			{
-				cY=cos(count4/10)*10
+				cY=cos(count4/5)*5
 			}
 			
 		}
 		fill(255-r,255-g,255-b)
-		circle(objects[i].actualPosX+d+cX,objects[i].actualPosY+h+cY,30)
+		circle(objects[i].actualPosX+d+cX,objects[i].actualPosY+h+cY,15)
 
 		d=0
 		h=0
@@ -421,18 +423,18 @@ function draw()
 
 	score+=count3*count3 * multiplier
 	fill(255)
-	text("Score: ",650,100)
-	text(score,700,100)
-	text("If you lose, press 'r' for restart",50,700)
-	text("For shaky mode, press 's'",50,100)
-	text("For curvy mode, press 'c'",50,115)
-	text("For epileptic mode, press 'e'",50,130)
-	text("To skip to max stage, press 'm'",50,155)
+	text("Score: ",325,50)
+	text(score,350,50)
+	text("If you lose, press 'r' for restart",25,350)
+	text("For shaky mode, press 's'",25,50)
+	text("For curvy mode, press 'c'",25,58)
+	text("For epileptic mode, press 'e'",25,66)
+	text("To skip to max stage, press 'm'",25,74)
 	if(stage<10)
 	{
-		text("Stage " + stage,650,650)
+		text("Stage " + stage,300,325)
 	}
-	text("(Use arrows to move)",650,700)
+	text("(Use arrows or swipe to move)",265,350)
 	destroy()
 }
 
@@ -453,7 +455,7 @@ function gameOver()
 {
 	for(var i=1;i<size;i++)
 	{
-		if((((objects[i].actualPosX-objects[0].actualPosX)*(objects[i].actualPosX-objects[0].actualPosX))+((objects[i].actualPosY-objects[0].actualPosY)*(objects[i].actualPosY-objects[0].actualPosY)))<=3600)
+		if((((objects[i].actualPosX-objects[0].actualPosX)*(objects[i].actualPosX-objects[0].actualPosX))+((objects[i].actualPosY-objects[0].actualPosY)*(objects[i].actualPosY-objects[0].actualPosY)))<=900)
 		{
 			return true
 		}
@@ -475,7 +477,7 @@ function keyPressed()
 						if(objects[0].pos!=5)
 						{
 							objects[0].target=0
-							objects[0].targetPosY+=100
+							objects[0].targetPosY+=50
 							objects[0].targetPos+=3
 						}
 					}
@@ -485,7 +487,7 @@ function keyPressed()
 						if(objects[0].pos!=2)
 						{
 							objects[0].target=2
-							objects[0].targetPosY-=100
+							objects[0].targetPosY-=50
 							objects[0].targetPos-=3
 						}
 					}
@@ -497,7 +499,7 @@ function keyPressed()
 							if(objects[0].pos!=8)
 							{
 								objects[0].target=0
-								objects[0].targetPosY+=100
+								objects[0].targetPosY+=50
 								objects[0].targetPos+=3
 							}
 						}
@@ -507,7 +509,7 @@ function keyPressed()
 							if(objects[0].pos!=2)
 							{
 								objects[0].target=2
-								objects[0].targetPosY-=100
+								objects[0].targetPosY-=50
 								objects[0].targetPos-=3
 							}
 						}
@@ -519,7 +521,7 @@ function keyPressed()
 						if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
 						{
 							objects[0].target=0
-							objects[0].targetPosY+=100
+							objects[0].targetPosY+=50
 							objects[0].targetPos+=3
 						}
 					}
@@ -529,7 +531,7 @@ function keyPressed()
 						if((objects[0].pos!=1)&&(objects[0].pos!=4)&&(objects[0].pos!=7))
 						{
 							objects[0].target=1
-							objects[0].targetPosX-=100
+							objects[0].targetPosX-=50
 							objects[0].targetPos--
 						}
 					}
@@ -539,7 +541,7 @@ function keyPressed()
 						if((objects[0].pos!=1)&&(objects[0].pos!=2)&&(objects[0].pos!=3))
 						{
 							objects[0].target=2
-							objects[0].targetPosY-=100
+							objects[0].targetPosY-=50
 							objects[0].targetPos-=3
 						}
 					}
@@ -549,7 +551,7 @@ function keyPressed()
 						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
 						{
 							objects[0].target=3
-							objects[0].targetPosX+=100
+							objects[0].targetPosX+=50
 							objects[0].targetPos++
 						}
 					}
@@ -561,7 +563,7 @@ function keyPressed()
 						if((objects[0].pos!=8)&&(objects[0].pos!=9))
 						{
 							objects[0].target=0
-							objects[0].targetPosY+=100
+							objects[0].targetPosY+=50
 							objects[0].targetPos+=3
 						}
 					}
@@ -571,7 +573,7 @@ function keyPressed()
 						if((objects[0].pos!=2)&&(objects[0].pos!=5)&&(objects[0].pos!=8))
 						{
 							objects[0].target=1
-							objects[0].targetPosX-=100
+							objects[0].targetPosX-=50
 							objects[0].targetPos--
 						}
 					}
@@ -581,7 +583,7 @@ function keyPressed()
 						if((objects[0].pos!=2)&&(objects[0].pos!=3))
 						{
 							objects[0].target=2
-							objects[0].targetPosY-=100
+							objects[0].targetPosY-=50
 							objects[0].targetPos-=3
 						}
 					}
@@ -591,7 +593,7 @@ function keyPressed()
 						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
 						{
 							objects[0].target=3
-							objects[0].targetPosX+=100
+							objects[0].targetPosX+=50
 							objects[0].targetPos++
 						}
 					}
@@ -648,7 +650,7 @@ function swiped(event)
 						if(objects[0].pos!=5)
 						{
 							objects[0].target=0
-							objects[0].targetPosY+=100
+							objects[0].targetPosY+=50
 							objects[0].targetPos+=3
 						}
 					}
@@ -658,7 +660,7 @@ function swiped(event)
 						if(objects[0].pos!=2)
 						{
 							objects[0].target=2
-							objects[0].targetPosY-=100
+							objects[0].targetPosY-=50
 							objects[0].targetPos-=3
 						}
 					}
@@ -670,7 +672,7 @@ function swiped(event)
 							if(objects[0].pos!=8)
 							{
 								objects[0].target=0
-								objects[0].targetPosY+=100
+								objects[0].targetPosY+=50
 								objects[0].targetPos+=3
 							}
 						}
@@ -680,7 +682,7 @@ function swiped(event)
 							if(objects[0].pos!=2)
 							{
 								objects[0].target=2
-								objects[0].targetPosY-=100
+								objects[0].targetPosY-=50
 								objects[0].targetPos-=3
 							}
 						}
@@ -692,7 +694,7 @@ function swiped(event)
 						if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
 						{
 							objects[0].target=0
-							objects[0].targetPosY+=100
+							objects[0].targetPosY+=50
 							objects[0].targetPos+=3
 						}
 					}
@@ -702,7 +704,7 @@ function swiped(event)
 						if((objects[0].pos!=1)&&(objects[0].pos!=4)&&(objects[0].pos!=7))
 						{
 							objects[0].target=1
-							objects[0].targetPosX-=100
+							objects[0].targetPosX-=50
 							objects[0].targetPos--
 						}
 					}
@@ -712,7 +714,7 @@ function swiped(event)
 						if((objects[0].pos!=1)&&(objects[0].pos!=2)&&(objects[0].pos!=3))
 						{
 							objects[0].target=2
-							objects[0].targetPosY-=100
+							objects[0].targetPosY-=50
 							objects[0].targetPos-=3
 						}
 					}
@@ -722,7 +724,7 @@ function swiped(event)
 						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
 						{
 							objects[0].target=3
-							objects[0].targetPosX+=100
+							objects[0].targetPosX+=50
 							objects[0].targetPos++
 						}
 					}
@@ -734,7 +736,7 @@ function swiped(event)
 						if((objects[0].pos!=8)&&(objects[0].pos!=9))
 						{
 							objects[0].target=0
-							objects[0].targetPosY+=100
+							objects[0].targetPosY+=50
 							objects[0].targetPos+=3
 						}
 					}
@@ -744,7 +746,7 @@ function swiped(event)
 						if((objects[0].pos!=2)&&(objects[0].pos!=5)&&(objects[0].pos!=8))
 						{
 							objects[0].target=1
-							objects[0].targetPosX-=100
+							objects[0].targetPosX-=50
 							objects[0].targetPos--
 						}
 					}
@@ -754,7 +756,7 @@ function swiped(event)
 						if((objects[0].pos!=2)&&(objects[0].pos!=3))
 						{
 							objects[0].target=2
-							objects[0].targetPosY-=100
+							objects[0].targetPosY-=50
 							objects[0].targetPos-=3
 						}
 					}
@@ -764,7 +766,7 @@ function swiped(event)
 						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
 						{
 							objects[0].target=3
-							objects[0].targetPosX+=100
+							objects[0].targetPosX+=50
 							objects[0].targetPos++
 						}
 					}
