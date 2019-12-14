@@ -29,7 +29,7 @@ var curvy = false
 	
 function setup() 
 {
-	createCanvas(1000, 800)
+	createCanvas(800, 800)
 	objects = []
 	size = 0
 	count = 1
@@ -39,6 +39,18 @@ function setup()
 	score = 0
 	objects.push(new Objectt(5))
 	size++
+	// set options to prevent default behaviors for swipe, pinch, etc
+	var options = {
+		preventDefault: true
+	};
+	
+	// document.body registers gestures anywhere on the page
+	var hammer = new Hammer(document.body, options);
+	hammer.get('swipe').set({
+	direction: Hammer.DIRECTION_ALL
+	});
+	
+	hammer.on("swipe", swiped);
 }
 
 function draw()
@@ -422,13 +434,6 @@ function draw()
 	}
 	text("(Use arrows to move)",650,700)
 	destroy()
-	fill(30)
-	rect(800,0,200,800)
-	fill(255,0,0)
-	rect(870,690,20,20)
-	rect(890,670,20,20)
-	rect(890,710,20,20)
-	rect(910,690,20,20)
 }
 
 function destroy()
@@ -626,48 +631,29 @@ function keyPressed()
 		stage=4
 		multiplier=7
 	}
-}		
+}
 
-function mousePressed()
+function swiped(event)
 {
-	if(objects[0].target==5)
+	console.log(event);
+	if(!gameOver())
 	{
-		switch(stage)
+		if(objects[0].target==5)
 		{
-			case (1):
-				if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=730)&&(mouseY>=710))
-				{
-					if(objects[0].pos!=5)
+			switch(stage)
+			{
+				case (1):
+					if (event.direction == 16)
 					{
-						objects[0].target=0
-						objects[0].targetPosY+=100
-						objects[0].targetPos+=3
-					}
-				}
-
-				if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=690)&&(mouseY>=670))
-				{
-					if(objects[0].pos!=2)
-					{
-						objects[0].target=2
-						objects[0].targetPosY-=100
-						objects[0].targetPos-=3
-					}
-				}
-				break;
-
-			case 2:
-					if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=730)&&(mouseY>=710))
-					{
-						if(objects[0].pos!=8)
+						if(objects[0].pos!=5)
 						{
 							objects[0].target=0
 							objects[0].targetPosY+=100
 							objects[0].targetPos+=3
 						}
 					}
-				
-					if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=690)&&(mouseY>=670))
+	
+					if (event.direction == 8)
 					{
 						if(objects[0].pos!=2)
 						{
@@ -677,94 +663,113 @@ function mousePressed()
 						}
 					}
 					break;
-			
-			case 4:
-				if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=730)&&(mouseY>=710))
-				{
-				if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
-					{
-						objects[0].target=0
-						objects[0].targetPosY+=100
-						objects[0].targetPos+=3
-					}
-				}
-					
-				if ((mouseX<=890)&&(mouseX>=870)&&(mouseY<=710)&&(mouseY>=690))
-				{
-					if((objects[0].pos!=1)&&(objects[0].pos!=4)&&(objects[0].pos!=7))
-					{
-						objects[0].target=1
-						objects[0].targetPosX-=100
-						objects[0].targetPos--
-					}
-				}
 
-				if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=690)&&(mouseY>=670))
-				{
-					if((objects[0].pos!=1)&&(objects[0].pos!=2)&&(objects[0].pos!=3))
-					{
-						objects[0].target=2
-						objects[0].targetPosY-=100
-						objects[0].targetPos-=3
-					}
-				}
-
-				if ((mouseX<=930)&&(mouseX>=910)&&(mouseY<=710)&&(mouseY>=690))
-				{
-					if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
-					{
-						objects[0].target=3
-						objects[0].targetPosX+=100
-						objects[0].targetPos++
-					}
-				}
-				break;
+				case 2:
+						if (event.direction == 16)
+						{
+							if(objects[0].pos!=8)
+							{
+								objects[0].target=0
+								objects[0].targetPosY+=100
+								objects[0].targetPos+=3
+							}
+						}
 				
-			case 3:
-				if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=730)&&(mouseY>=710))
-				{
-					if((objects[0].pos!=8)&&(objects[0].pos!=9))
+						if (event.direction == 8)
+						{
+							if(objects[0].pos!=2)
+							{
+								objects[0].target=2
+								objects[0].targetPosY-=100
+								objects[0].targetPos-=3
+							}
+						}
+						break;
+			
+				case 4:
+					if (event.direction == 16)
 					{
-						objects[0].target=0
-						objects[0].targetPosY+=100
-						objects[0].targetPos+=3
+						if((objects[0].pos!=7)&&(objects[0].pos!=8)&&(objects[0].pos!=9))
+						{
+							objects[0].target=0
+							objects[0].targetPosY+=100
+							objects[0].targetPos+=3
+						}
 					}
-				}
+						
+					if (event.direction == 2)
+					{
+						if((objects[0].pos!=1)&&(objects[0].pos!=4)&&(objects[0].pos!=7))
+						{
+							objects[0].target=1
+							objects[0].targetPosX-=100
+							objects[0].targetPos--
+						}
+					}
+	
+					if (event.direction == 8)
+					{
+						if((objects[0].pos!=1)&&(objects[0].pos!=2)&&(objects[0].pos!=3))
+						{
+							objects[0].target=2
+							objects[0].targetPosY-=100
+							objects[0].targetPos-=3
+						}
+					}
+	
+					if (event.direction == 4)
+					{
+						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
+						{
+							objects[0].target=3
+							objects[0].targetPosX+=100
+							objects[0].targetPos++
+						}
+					}
+					break;
 					
-				if ((mouseX<=890)&&(mouseX>=870)&&(mouseY<=710)&&(mouseY>=690))
-				{
-					if((objects[0].pos!=2)&&(objects[0].pos!=5)&&(objects[0].pos!=8))
+				case 3:
+					if (event.direction == 16)
 					{
-						objects[0].target=1
-						objects[0].targetPosX-=100
-						objects[0].targetPos--
+						if((objects[0].pos!=8)&&(objects[0].pos!=9))
+						{
+							objects[0].target=0
+							objects[0].targetPosY+=100
+							objects[0].targetPos+=3
+						}
 					}
-				}
+					
+					if (event.direction == 2)
+					{
+						if((objects[0].pos!=2)&&(objects[0].pos!=5)&&(objects[0].pos!=8))
+						{
+							objects[0].target=1
+							objects[0].targetPosX-=100
+							objects[0].targetPos--
+						}
+					}
 
-				if ((mouseX<=910)&&(mouseX>=890)&&(mouseY<=690)&&(mouseY>=670))
-				{
-					if((objects[0].pos!=2)&&(objects[0].pos!=3))
+					if (event.direction == 8)
 					{
-						objects[0].target=2
-						objects[0].targetPosY-=100
-						objects[0].targetPos-=3
+						if((objects[0].pos!=2)&&(objects[0].pos!=3))
+						{
+							objects[0].target=2
+							objects[0].targetPosY-=100
+							objects[0].targetPos-=3
+						}
 					}
-				}
 
-				if ((mouseX<=930)&&(mouseX>=910)&&(mouseY<=710)&&(mouseY>=690))
-				{
-					if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
+					if (event.direction == 4)
 					{
-						objects[0].target=3
-						objects[0].targetPosX+=100
-						objects[0].targetPos++
+						if((objects[0].pos!=3)&&(objects[0].pos!=6)&&(objects[0].pos!=9))
+						{
+							objects[0].target=3
+							objects[0].targetPosX+=100
+							objects[0].targetPos++
+						}
 					}
-				}
-				break;
+					break;
+			}
 		}
-	}
-	if((mouseX<=910)&&(mouseX>=890)&&(mouseY<=730)&&(mouseY>=710))
-	{
-		
 	}
 }
