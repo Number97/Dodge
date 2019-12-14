@@ -16,7 +16,7 @@ class Objectt
 		}
 		else
 		{
-			this.speed=3
+			this.speed=2
 		}
 
 		switch(this.pos)

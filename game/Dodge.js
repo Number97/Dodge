@@ -73,7 +73,7 @@ function draw()
 			(
 				count4++
 			)
-			if(count%60==0)
+			if(count%90==0)
 			{
 				count=0
 				if(count2<=10)
@@ -128,7 +128,7 @@ function draw()
 			(
 				count4++
 			)
-			if(count%60==0)
+			if(count%90==0)
 			{
 				count=0
 				count2++
@@ -215,7 +215,7 @@ function draw()
 			(
 				count4++
 			)
-			if(count%60==0)
+			if(count%90==0)
 			{
 				count=0
 				count2++
@@ -314,7 +314,7 @@ function draw()
 			(
 				count4++
 			)
-			if(count%60==0)
+			if(count%90==0)
 			{
 				count=0
 				count2++
@@ -429,7 +429,7 @@ function draw()
 	text("For shaky mode, press 's'",25,50)
 	text("For curvy mode, press 'c'",25,58)
 	text("For epileptic mode, press 'e'",25,66)
-	text("To skip to max stage, press 'm'",25,74)
+	text("To skip to max stage, press 'm'",25,74 )
 	if(stage<10)
 	{
 		text("Stage " + stage,300,325)
