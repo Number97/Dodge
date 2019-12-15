@@ -33,6 +33,7 @@ var curvy = false
 var extra1
 var extra2
 var extra3
+var extra4
 
 function setup() 
 {
@@ -62,6 +63,7 @@ function setup()
 	extra1 = 0
 	extra2 = 0
 	extra3 = 0
+	extra4 = 0
 }
 
 function draw()
@@ -460,7 +462,7 @@ function draw()
 	{
 		fill(255)
 	}
-	rect(108+extra1,267,14,14)
+	rect(108-extra1,267,14,14)
 	fill(255)
 	circle(25,274+cos(count4/5)*5,8)
 	text("shaky",47,301)
@@ -472,7 +474,7 @@ function draw()
 	{
 		fill(255)
 	}
-	rect(108+extra2,290,14,14)
+	rect(108-extra2,290,14,14)
 	fill(255)
 	circle(25+random(-2,2),297+random(-2,2),8)
 	text("epilepsy",47,324)
@@ -484,7 +486,7 @@ function draw()
 	{
 		fill(255)
 	}
-	rect(108+extra3,313,14,14)
+	rect(108-extra3,313,14,14)
 	fill(random(255),random(255),random(255))
 	circle(25,320,8)
 	fill(255)
@@ -501,7 +503,7 @@ function draw()
 	{
 		fill(255)
 	}
-	rect(108,59,14,14)
+	rect(108,59+extra4,14,14)
 	fill(255)
 
 	//minimum
@@ -688,7 +690,7 @@ function keyPressed()
 
 function mousePressed()
 {
-		if((mouseX>=108+extra1)&&(mouseX<=122+extra1)&&(mouseY>=267)&&(mouseY<=281))
+		if((mouseX>=108-extra1)&&(mouseX<=122-extra1)&&(mouseY>=267)&&(mouseY<=281))
 		{
 			curvy=!curvy
 			if(extra1==18)
@@ -701,7 +703,7 @@ function mousePressed()
 			}
 		}
 
-		if((mouseX>=108+extra2)&&(mouseX<=122+extra2)&&(mouseY>=290)&&(mouseY<=304))
+		if((mouseX>=108-extra2)&&(mouseX<=122-extra2)&&(mouseY>=290)&&(mouseY<=304))
 		{
 			shaky=!shaky
 			if(extra2==18)
@@ -714,7 +716,7 @@ function mousePressed()
 			}
 		}
 
-		if((mouseX>=108+extra3)&&(mouseX<=122+extra3)&&(mouseY>=313)&&(mouseY<=327))
+		if((mouseX>=108-extra3)&&(mouseX<=122-extra3)&&(mouseY>=313)&&(mouseY<=327))
 		{
 			epilepsy=!epilepsy
 			if(extra3==18)
@@ -733,9 +735,17 @@ function mousePressed()
 			multiplier=7
 		}
 
-		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=59)&&(mouseY<=73))
+		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=59+extra4)&&(mouseY<=73+extra4))
 		{
 			minimumDistance=!minimumDistance
+			if(extra4==18)
+			{
+				extra4=0
+			}
+			else
+			{
+				extra4=18
+			}
 		}
 
 		if(((mouseX>=108)&&(mouseX<=122)&&(mouseY>=359)&&(mouseY<=373))&&(gameOver()))
