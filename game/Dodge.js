@@ -6,6 +6,7 @@ var count3
 var number
 var score
 var removed
+var locked = false
 
 var stage = 1
 var transitionStage = 0
@@ -59,6 +60,10 @@ function setup()
 
 function draw()
 {	
+	if(!mousePressed)
+	{
+		locked=false
+	}
 	index=0
 	minimum=600
 	if(gameOver())
@@ -428,7 +433,6 @@ function draw()
 		}
 	}
 
-
 	count++
 
 	if(!gameOver())
@@ -682,46 +686,50 @@ function keyPressed()
 
 function mousePressed()
 {
-	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=267)&&(mouseY<=281))
+	if(!locked)
 	{
-		curvy=!curvy
-	}
+		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=267)&&(mouseY<=281))
+		{
+			curvy=!curvy
+		}
 
-	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=290)&&(mouseY<=304))
-	{
-		shaky=!shaky
-	}
+		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=290)&&(mouseY<=304))
+		{
+			shaky=!shaky
+		}
 
-	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=313)&&(mouseY<=327))
-	{
-		epilepsy=!epilepsy
-	}
+		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=313)&&(mouseY<=327))
+		{
+			epilepsy=!epilepsy
+		}
 
-	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=336)&&(mouseY<=350))
-	{
-		stage=4
-		multiplier=7
-	}
+		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=336)&&(mouseY<=350))
+		{
+			stage=4
+			multiplier=7
+		}
 
-	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=59)&&(mouseY<=73))
-	{
-		minimumDistance=!minimumDistance
-	}
+		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=59)&&(mouseY<=73))
+		{
+			minimumDistance=!minimumDistance
+		}
 
-	if(((mouseX>=108)&&(mouseX<=122)&&(mouseY>=359)&&(mouseY<=373))&&(gameOver()))
-	{
+		if(((mouseX>=108)&&(mouseX<=122)&&(mouseY>=359)&&(mouseY<=373))&&(gameOver()))
+		{
 
-		stage=1
-		multiplier =1
-		objects = []
-		size = 0
-		count = 1
-		count2 = 0
-		count3 = 1
-		number = 0
-		score = 0
-		objects.push(new Objectt(5))
-		size++
+			stage=1
+			multiplier =1
+			objects = []
+			size = 0
+			count = 1
+			count2 = 0
+			count3 = 1
+			number = 0
+			score = 0
+			objects.push(new Objectt(5))
+			size++
+		}
+		locked=true
 	}
 }
 
