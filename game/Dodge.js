@@ -519,7 +519,10 @@ function draw()
 			}
 		}
 		noFill()
+		strokeWeight(2)
+		stroke(255)
 		circle(objects[0].actualPosX,objects[0].actualPosY,minimum-15)
+		strokeWeight(1)
 	}
 }
 
