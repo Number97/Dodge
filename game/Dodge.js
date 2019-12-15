@@ -6,7 +6,6 @@ var count3
 var number
 var score
 var removed
-var locked = false
 
 var stage = 1
 var transitionStage = 0
@@ -30,7 +29,11 @@ var count4=0
 var epilepsy = false
 var shaky = false
 var curvy = false
-	
+
+var extra1
+var extra2
+var extra3
+
 function setup() 
 {
 	createCanvas(400, 400)
@@ -56,14 +59,13 @@ function setup()
 	hammer.on("swipe", swiped);
 
 	textSize(8)
+	extra1 = 0
+	extra2 = 0
+	extra3 = 0
 }
 
 function draw()
-{	
-	if(!mousePressed)
-	{
-		locked=false
-	}
+{
 	index=0
 	minimum=600
 	if(gameOver())
@@ -458,7 +460,7 @@ function draw()
 	{
 		fill(255)
 	}
-	rect(108,267,14,14)
+	rect(108+extra1,267,14,14)
 	fill(255)
 	circle(25,274+cos(count4/5)*5,8)
 	text("shaky",47,301)
@@ -470,7 +472,7 @@ function draw()
 	{
 		fill(255)
 	}
-	rect(108,290,14,14)
+	rect(108+extra2,290,14,14)
 	fill(255)
 	circle(25+random(-2,2),297+random(-2,2),8)
 	text("epilepsy",47,324)
@@ -482,7 +484,7 @@ function draw()
 	{
 		fill(255)
 	}
-	rect(108,313,14,14)
+	rect(108+extra3,313,14,14)
 	fill(random(255),random(255),random(255))
 	circle(25,320,8)
 	fill(255)
@@ -686,21 +688,43 @@ function keyPressed()
 
 function mousePressed()
 {
-	if(!locked)
-	{
-		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=267)&&(mouseY<=281))
+		if((mouseX>=108+extra1)&&(mouseX<=122+extra1)&&(mouseY>=267)&&(mouseY<=281))
 		{
 			curvy=!curvy
+			if(extra1==18)
+			{
+				extra1=0
+			}
+			else
+			{
+				extra1=18
+			}
 		}
 
-		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=290)&&(mouseY<=304))
+		if((mouseX>=108+extra2)&&(mouseX<=122+extra2)&&(mouseY>=290)&&(mouseY<=304))
 		{
 			shaky=!shaky
+			if(extra2==18)
+			{
+				extra2=0
+			}
+			else
+			{
+				extra2=18
+			}
 		}
 
-		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=313)&&(mouseY<=327))
+		if((mouseX>=108+extra3)&&(mouseX<=122+extra3)&&(mouseY>=313)&&(mouseY<=327))
 		{
 			epilepsy=!epilepsy
+			if(extra3==18)
+			{
+				extra3=0
+			}
+			else
+			{
+				extra3=18
+			}
 		}
 
 		if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=336)&&(mouseY<=350))
@@ -729,8 +753,6 @@ function mousePressed()
 			objects.push(new Objectt(5))
 			size++
 		}
-		locked=true
-	}
 }
 
 function swiped(event)
