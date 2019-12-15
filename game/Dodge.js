@@ -43,7 +43,6 @@ function setup()
 	var options = {
 		preventDefault: true
 	};
-	
 	// document.body registers gestures anywhere on the page
 	var hammer = new Hammer(document.body, options);
 	hammer.get('swipe').set({

@@ -12,7 +12,7 @@ class Objectt
 		
 		if(this.pos<=9)
 		{
-			this.speed=25
+			this.speed=10
 		}
 		else
 		{
