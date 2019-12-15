@@ -494,7 +494,7 @@ function draw()
 	rect(108,336,14,14)
 	text("restart",47,370)
 	rect(108,359,14,14)
-	text("show minimum distance",12,70)
+	text("show minimum distance asdfasdf",12,70)
 	if(minimumDistance)
 	{
 		fill(0,0,170)
