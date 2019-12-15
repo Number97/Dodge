@@ -21,6 +21,9 @@ var b=0
 
 var cX=0
 var cY=0
+var minimum
+var minimumDistance=false
+var index
 
 var count4=0
 var epilepsy = false
@@ -56,9 +59,17 @@ function setup()
 
 function draw()
 {	
+	index=0
+	minimum=600
 	if(gameOver())
 	{
-		noLoop()
+		for(var i=0;i<size;i++)
+		{
+			if(objects[i].target==5)
+			{
+				objects[i].speed=0
+			}
+		}
 	}
 
 	switch(stage)
@@ -420,21 +431,88 @@ function draw()
 
 	count++
 
-	score+=count3*count3 * multiplier
+	if(!gameOver())
+	{
+		score+=count3*count3 * multiplier
+	}
 	fill(255)
 	text("Score: ",325,50)
 	text(score,350,50)
-	text("If you lose, press 'r' for restart",25,350)
-	text("For shaky mode, press 's'",25,50)
-	text("For curvy mode, press 'c'",25,58)
-	text("For epileptic mode, press 'e'",25,66)
-	text("To skip to max stage, press 'm'",25,74 )
 	if(stage<10)
 	{
 		text("Stage " + stage,300,325)
 	}
 	text("(Use arrows or swipe to move)",265,350)
 	destroy()
+
+	text("curvy",47,278)
+	if(curvy)
+	{
+		fill(0,0,170)
+	}
+	else
+	{
+		fill(255)
+	}
+	rect(108,267,14,14)
+	fill(255)
+	circle(25,274+cos(count4/5)*5,8)
+	text("shaky",47,301)
+	if(shaky)
+	{
+		fill(0,0,170)
+	}
+	else
+	{
+		fill(255)
+	}
+	rect(108,290,14,14)
+	fill(255)
+	circle(25+random(-2,2),297+random(-2,2),8)
+	text("epilepsy",47,324)
+	if(epilepsy)
+	{
+		fill(0,0,170)
+	}
+	else
+	{
+		fill(255)
+	}
+	rect(108,313,14,14)
+	fill(random(255),random(255),random(255))
+	circle(25,320,8)
+	fill(255)
+	text("skip to stage 4",47,347)
+	rect(108,336,14,14)
+	text("restart",47,370)
+	rect(108,359,14,14)
+	text("show minimum distance",12,70)
+	if(minimumDistance)
+	{
+		fill(0,0,170)
+	}
+	else
+	{
+		fill(255)
+	}
+	rect(108,59,14,14)
+	fill(255)
+
+	//minimum
+
+	if(minimumDistance)
+	{
+		for(var i=1;i<size;i++)
+		{
+			if(sqrt(((objects[i].actualPosX-objects[0].actualPosX)*(objects[i].actualPosX-objects[0].actualPosX))+((objects[i].actualPosY-objects[0].actualPosY)*(objects[i].actualPosY-objects[0].actualPosY)))<minimum)
+			{
+				minimum=sqrt(((objects[i].actualPosX-objects[0].actualPosX)*(objects[i].actualPosX-objects[0].actualPosX))+((objects[i].actualPosY-objects[0].actualPosY)*(objects[i].actualPosY-objects[0].actualPosY)))
+				index=i
+			}
+		}
+		noFill()
+		circle(objects[0].actualPosX,objects[0].actualPosY,minimum-15)
+	}
 }
 
 function destroy()
@@ -600,9 +678,41 @@ function keyPressed()
 			}
 		}
 	}
-	else if(key=='r')
+}
+
+function mousePressed()
+{
+	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=267)&&(mouseY<=281))
 	{
+		curvy=!curvy
+	}
+
+	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=290)&&(mouseY<=304))
+	{
+		shaky=!shaky
+	}
+
+	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=313)&&(mouseY<=327))
+	{
+		epilepsy=!epilepsy
+	}
+
+	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=336)&&(mouseY<=350))
+	{
+		stage=4
+		multiplier=7
+	}
+
+	if((mouseX>=108)&&(mouseX<=122)&&(mouseY>=59)&&(mouseY<=73))
+	{
+		minimumDistance=!minimumDistance
+	}
+
+	if(((mouseX>=108)&&(mouseX<=122)&&(mouseY>=359)&&(mouseY<=373))&&(gameOver()))
+	{
+
 		stage=1
+		multiplier =1
 		objects = []
 		size = 0
 		count = 1
@@ -612,25 +722,6 @@ function keyPressed()
 		score = 0
 		objects.push(new Objectt(5))
 		size++
-		loop()
-		frameRate(200)
-	}
-	if(key=='c')
-	{
-		curvy=!curvy
-	}
-	if(key=='e')
-	{
-		epilepsy=!epilepsy
-	}
-	if(key=='s')
-	{
-		shaky=!shaky
-	}
-	if(key=='m')
-	{
-		stage=4
-		multiplier=7
 	}
 }
 
